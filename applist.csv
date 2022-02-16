@@ -1,5 +1,7 @@
 category,type,name
-Default,cli,ls -l
-Default,gui,google-chrome
 Default,gui,gimp
+Default,gui,google-chrome
+Default,cli,ls -l
 Gaming,gui,firefox
+Other,gui,firefox
+Other,cli,ls -a

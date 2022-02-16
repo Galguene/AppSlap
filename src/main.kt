@@ -67,7 +67,27 @@ fun orderApps() {
 
 fun addApp(cat: String, typ: String, app: String, ) {
     val path = System.getProperty("user.dir")
-    File("${path}/applist.csv").appendText("$cat,$typ,$app")
+    File("${path}/applist.csv").appendText("$cat,$typ,$app\n")
+}
+
+fun removeApp() {
+    val path = System.getProperty("user.dir")
+    var apps = File("${path}/applist.csv").bufferedReader().readLines()
+    for ((i,v) in apps.withIndex()) {
+        println("$i - $v")
+    }
+    println("Line to remove:")
+    val line = readLine()!!
+    var appArr = apps.toTypedArray()
+    var appList = appArr.toMutableList()
+    appList.removeAt(line.toInt())
+    appArr = appList.toTypedArray()
+    File("${path}/applist.csv").bufferedWriter().use { out ->
+        for ((_,v) in appArr.withIndex()) {
+            out.write(v)
+            out.newLine()
+        }
+    }
 }
 
 fun main(args: Array<String?>) {
@@ -124,7 +144,11 @@ fun main(args: Array<String?>) {
                     val cat = readLine()!!
                     addApp(cat,"cli",cmd)
                 }
-            } else -> {
+            }
+            "-remove" -> {
+                removeApp()
+            }
+            else -> {
                 println("Wrong argument:${args[0]}")
             }
         }
